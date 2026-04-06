@@ -1,0 +1,196 @@
+<script>
+// Verificar login
+if(localStorage.getItem("logged") !== "true") {
+    window.location.href = "login.html";
+}
+</script>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatFood</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0f0f0f;
+    color: white;
+    overflow: hidden;
+}
+
+/* HEADER */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+/* FEED */
+.feed {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+/* POST */
+.post {
+    height: 100vh;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+.post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* OVERLAY */
+.overlay {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+/* TEXT */
+.title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* BUTTON */
+.order-btn {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #ff3d00;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition:0.3s
+}
+
+.order-btn:hover {
+    background: #ff6d00;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: #111;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #222;
+}
+
+.nav-item {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.nav-item.active {
+    color: #ff3d00;
+}
+
+/* ICON */
+.icon {
+    font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🍔 WhatFood</div>
+
+<div class="feed">
+
+    <div class="post">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd">
+        <div class="overlay">
+            <div class="title">Hamburguesa brutal</div>
+            <div class="description">🔥 La más top de la ciudad</div>
+            <button class="order-btn" onclick="order('Hamburguesa')">Pedir</button>
+        </div>
+    </div>
+
+    <div class="post">
+        <img src="https://images.unsplash.com/photo-1548365328-9f547fb0953d">
+        <div class="overlay">
+            <div class="title">Pizza gigante</div>
+            <div class="description">🧀 Queso infinito</div>
+            <button class="order-btn" onclick="order('Pizza')">Pedir</button>
+        </div>
+    </div>
+
+    <div class="post">
+        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
+        <div class="overlay">
+            <div class="title">Papas crujientes</div>
+            <div class="description">🍟 Perfectas para compartir</div>
+            <button class="order-btn" onclick="order('Papas')">Pedir</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-item active">
+        <div class="icon">🏠</div>
+        Inicio
+    </div>
+    <div class="nav-item">
+        <div class="icon">🔍</div>
+        Buscar
+    </div>
+    <div class="nav-item">
+        <div class="icon">➕</div>
+        Subir
+    </div>
+    <div class="nav-item">
+        <div class="icon">❤️</div>
+        Likes
+    </div>
+    <div class="nav-item">
+        <div class="icon">👤</div>
+        Perfil
+    </div>
+</div>
+
+<script>
+function order(food) {
+    alert("🛒 Pedido: " + food);
+}
+</script>
+
+</body>
+</html>
