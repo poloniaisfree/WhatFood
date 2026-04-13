@@ -1,0 +1,16 @@
+// CONFIG //
+const firebaseConfig = {
+  apiKey: "demo",
+  authDomain: "demo",
+  projectId: "demo"
+};
+
+// Inicializar SOLO si existe Firebase
+if (typeof firebase !== "undefined") {
+  firebase.initializeApp(firebaseConfig);
+  
+  var db = firebase.firestore();
+  var auth = firebase.auth();
+
+  console.log("Firebase listo");
+}

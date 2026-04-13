@@ -1,0 +1,90 @@
+const feed = document.getElementById("feed");
+
+// 🔥 DATOS LOCALES (fallback)
+const foods = [
+  {
+   console.log("SI FUNCIONA");
+    name: "Hamburguesa",
+    desc: "La más brutal 🔥",
+    img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+    likes: 0
+  },
+  {
+    name: "Pizza",
+    desc: "Queso infinito 🧀",
+    img: "https://images.unsplash.com/photo-1548365328-9f547fb0953d",
+    likes: 0
+  }
+];
+
+// 🔥 SI FIREBASE FUNCIONA → usa DB
+if (typeof db !== "undefined") {
+
+  db.collection("foods").onSnapshot(snapshot => {
+    feed.innerHTML = "";
+
+    snapshot.forEach(doc => {
+      const food = doc.data();
+      createPost(food, doc.id);
+    });
+  });
+
+} else {
+  // 🔥 SI NO → usa datos locales
+  foods.forEach(food => createPost(food));
+}
+
+
+// 🎯 CREAR POST
+function createPost(food, id = null) {
+
+  const post = document.createElement("div");
+  post.className = "post";
+
+  post.innerHTML = `
+    <img src="${food.img}">
+    <div class="overlay">
+      <h2>${food.name}</h2>
+      <p>${food.desc}</p>
+
+      <div>
+        <span onclick="like(this, '${id}')" class="like">🤍</span>
+        <span class="count">${food.likes}</span>
+      </div>
+
+      <button onclick="order('${food.name}')">Pedir</button>
+    </div>
+  `;
+
+  feed.appendChild(post);
+}
+
+
+// ❤️ LIKE (LOCAL + FIREBASE)
+function like(el, id) {
+  const count = el.nextElementSibling;
+  let value = parseInt(count.innerText);
+
+  if (el.innerText === "🤍") {
+    value++;
+    el.innerText = "❤️";
+  } else {
+    value--;
+    el.innerText = "🤍";
+  }
+
+  count.innerText = value;
+
+  // 🔥 guardar en firebase si existe
+  if (id && typeof db !== "undefined") {
+    db.collection("foods").doc(id).update({
+      likes: value
+    });
+  }
+}
+
+
+// 🛒 PEDIDO
+function order(food) {
+  alert("Pedido: " + food);
+}
